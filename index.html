@@ -13,7 +13,6 @@
             --light-bg: #F8F9FA;
             --border-color: #BDC3C7;
         }
-
         body {
             font-family: Arial, sans-serif;
             background-color: var(--light-bg);
@@ -21,7 +20,6 @@
             padding: 20px;
             color: #333;
         }
-
         h1 {
             color: var(--primary);
             text-align: center;
@@ -31,15 +29,12 @@
             border-bottom: 4px solid var(--primary);
             padding-bottom: 10px;
         }
-
-        /* Senior Friendly Tab Navigation */
         .tabs {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
         }
-
         .tab-btn {
             background-color: #E2E8F0;
             border: 2px solid var(--border-color);
@@ -49,20 +44,13 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 8px;
-            transition: all 0.2s ease;
         }
-
-        .tab-btn:hover {
-            background-color: #CBD5E1;
-        }
-
         .tab-btn.active {
             background-color: var(--primary);
             color: white;
             border-color: var(--primary);
             box-shadow: 0 4px 6px rgba(0,0,0,0.15);
         }
-
         .tab-content {
             display: none;
             background: white;
@@ -72,95 +60,55 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             max-width: 1400px;
             margin: 0 auto;
-            overflow-x: auto;
         }
-
         .tab-content.active {
             display: block;
         }
-
-        /* Double-Spaced High-Contrast Tables */
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 16px;
-            text-align: left;
         }
-
         th {
             background-color: var(--primary);
             color: white;
-            font-size: 16px;
             padding: 16px;
-            letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
+            text-align: left;
         }
-
         td {
             padding: 16px;
             border-bottom: 1px solid #E2E8F0;
         }
-
-        /* Roster Team Block Splitting Barriers */
         .team-barrier-row td {
             border-top: 5px solid var(--primary) !important;
             background-color: #EDF2F7;
             font-weight: bold;
-            font-size: 18px;
             color: var(--primary);
         }
-
-        /* Layout Highlighting Cues */
         .status-active {
             background-color: rgba(42, 157, 143, 0.15);
             color: #1B655C;
             font-weight: bold;
         }
-
         .status-bench {
             background-color: rgba(233, 196, 106, 0.15);
             color: #8F6B00;
         }
-
-        /* Large Select Controls for Seniors */
-        select {
+        select, input {
             font-size: 15px;
             padding: 8px;
-            width: 100%;
             border-radius: 6px;
             border: 2px solid var(--border-color);
             font-weight: bold;
         }
-
         .week-selector-container {
             background-color: #EDF2F7;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
             font-size: 18px;
             font-weight: bold;
         }
-
-        .week-selector-container select {
-            width: auto;
-            font-size: 18px;
-            padding: 10px;
-        }
-
-        .points-input {
-            width: 80px;
-            padding: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid var(--border-color);
-            border-radius: 4px;
-        }
-
         .zebra-row:nth-child(even) {
             background-color: #F8F9FA;
         }
@@ -179,7 +127,7 @@
     <!-- TAB 1: LEADERBOARD -->
     <div id="leaderboard" class="tab-content active">
         <div class="week-selector-container">
-            <label for="currentWeekSelect">🔎 View Stats For Race Week:</label>
+            <label for="currentWeekSelect">🔎 View Stats For Race Week: </label>
             <select id="currentWeekSelect" onchange="calculateApp()"></select>
         </div>
         <table>
@@ -192,9 +140,7 @@
                     <th>Points Behind Leader</th>
                 </tr>
             </thead>
-            <tbody id="leaderboard-data">
-                <!-- Auto Generated rows via JS -->
-            </tbody>
+            <tbody id="leaderboard-data"></tbody>
         </table>
     </div>
 
@@ -211,30 +157,26 @@
                     <th>12-Race Min?</th>
                 </tr>
             </thead>
-            <tbody id="rosters-data">
-                <!-- Auto Generated 50 teams x 9 slots via JS -->
-            </tbody>
+            <tbody id="rosters-data"></tbody>
         </table>
     </div>
 
-    <!-- TAB 3: SCHEDULE & INPUTS -->
+    <!-- TAB 3: SCHEDULE -->
     <div id="schedule" class="tab-content">
-        <p style="font-size: 16px; font-weight: bold; color: #C53030;">⚠️ Commissioner Entry Area: Enter raw point scores for each driver below on race days. All other views recalculate automatically.</p>
-        <table>
-            <thead>
-                <tr id="schedule-header">
-                    <th style="position: sticky; left: 0; background-color: var(--primary);">Driver Name</th>
-                    <!-- 36 Races mapped via JS -->
-                </tr>
-            </thead>
-            <tbody id="schedule-data">
-                <!-- Drivers list with input columns via JS -->
-            </tbody>
-        </table>
+        <p style="color: #C53030; font-weight: bold;">⚠️ Enter raw point scores for each driver below on race days. All views recalculate automatically.</p>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr id="schedule-header">
+                        <th style="position: sticky; left: 0; background-color: var(--primary);">Driver Name</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-data"></tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        // Official 2027 36 Points-Paying Schedule Arrays
         const RACES = [
             "Daytona 500", "Atlanta", "Austin (COTA)", "Phoenix", "Las Vegas", "Darlington", 
             "Bristol", "Martinsville", "Talladega", "Texas", "Kansas", "Dover", 
@@ -244,7 +186,6 @@
             "Charlotte Roval", "Phoenix 2", "Talladega 2", "Martinsville 2", "Homestead-Miami", "Championship"
         ];
 
-        // 2027 Confirmed & Projected Field Pool
         const DRIVERS = [
             "Kyle Larson", "Chase Elliott", "William Byron", "Alex Bowman", "Denny Hamlin",
             "Christopher Bell", "Ty Gibbs", "Chase Briscoe", "Joey Logano", "Ryan Blaney",
@@ -255,29 +196,14 @@
             "Justin Haley", "Christian Eckes", "Taylor Gray", "AJ Allmendinger", "Daniel Suarez"
         ].sort();
 
-        // Structural State Objects
-        let db = {
-            teams: [],
-            points: {}, // Structure: { DriverName: [Array of 36 integer points] }
-            activeHistory: {} // Structure: { TeamIdx-SlotIdx: [Array of 36 booleans tracking active state per week] }
-        };
+        let db = { teams: [], points: {}, activeHistory: {} };
 
-        // Instantiate Default System State Data
         function initData() {
-            // Seed driver data
-            DRIVERS.forEach(d => {
-                db.points[d] = Array(36).fill(0);
-            });
-
-            // Scaffold 50 Teams
+            DRIVERS.forEach(d => { db.points[d] = Array(36).fill(0); });
             for (let t = 1; t <= 50; t++) {
                 let team = { name: `Fantasy Team ${t}`, roster: [] };
                 for (let s = 0; s < 9; s++) {
-                    team.roster.push({
-                        driver: DRIVERS[s % DRIVERS.length],
-                        status: s < 6 ? "Active" : "Bench"
-                    });
-                    // Initialize weekly tracking array history maps
+                    team.roster.push({ driver: DRIVERS[s % DRIVERS.length], status: s < 6 ? "Active" : "Bench" });
                     db.activeHistory[`${t-1}-${s}`] = Array(36).fill(s < 6);
                 }
                 db.teams.push(team);
@@ -288,11 +214,46 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
-        // Master Calculations Rendering Pass
         function calculateApp() {
-            const currentWeekIdx = parseInt(document.getElementById('currentWeekSelect').value);
-            
-            // Build out calculated performance aggregates
+            const currentWeekIdx = parseInt(document.getElementById('currentWeekSelect').value || 0);
+            let teamScores = db.teams.map((team, tIdx) => {
+                let totalPoints = 0; let currentWeekPoints = 0;
+                team.roster.forEach((slot, sIdx) => {
+                    let dPoints = db.points[slot.driver] || Array(36).fill(0);
+                    for (let w = 0; w < 36; w++) {
+                        if (db.activeHistory[`${tIdx}-${sIdx}`][w]) {
+                            totalPoints += dPoints[w];
+                            if (w === currentWeekIdx) currentWeekPoints += dPoints[w];
+                        }
+                    }
+                });
+                return { name: team.name, total: totalPoints, weekly: currentWeekPoints };
+            });
+
+            teamScores.sort((a, b) => b.total - a.total);
+            const maxScore = teamScores.length > 0 ? teamScores[0].total : 0;
+
+            let lbBody = document.getElementById('leaderboard-data');
+            if (lbBody) {
+                lbBody.innerHTML = '';
+                teamScores.forEach((t, index) => {
+                    let gapDisplay = (t.total === maxScore) ? "—" : `-${maxScore - t.total}`;
+                    let row = document.createElement('tr');
+                    row.className = "zebra-row";
+                    row.innerHTML = `<td>${index + 1}</td><td style="font-weight:bold;">${t.name}</td><td>+${t.weekly}</td><td style="font-weight:bold;">${t.total}</td><td style="color:#C53030; font-weight:bold;">${gapDisplay}</td>`;
+                    lbBody.appendChild(row);
+                });
+            }
+        }
+
+        function renderRosters() {
+            let rBody = document.getElementById('rosters-data');
+            if (!rBody) return;
+            rBody.innerHTML = '';
+            db.teams.forEach((team, tIdx) => {
+                team.roster.forEach((slot, sIdx) => {
+                    let row = document.createElement('tr');
+                    if (sIdx === 0) row.className = "team-barrier-row";
